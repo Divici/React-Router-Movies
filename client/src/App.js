@@ -4,6 +4,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 import SavedList from './Movies/SavedList';
 import MovieList from './Movies/MovieList';
+import Movie from './Movies/Movie';
 
 export default function App () {
   const [saved, setSaved] = useState([]); // Stretch: the ids of "saved" movies
@@ -16,7 +17,6 @@ export default function App () {
         .then(response => {
           // Study this response with a breakpoint or log statements
           // and set the response data as the 'movieList' slice of state
-          console.log(response);
           setMovieList(response.data);
         })
         .catch(error => {
@@ -32,10 +32,13 @@ export default function App () {
 
   return (
     <div>
-      <SavedList list={[ /* This is stretch */]} />
+      <Link to='/'>
+        <SavedList list={[ /* This is stretch */]} />
+      </Link>
+      
       <Switch>
-        <Route path='/movie-list/:itemID'>
-          {/* <Movie movies={movieList} /> */}
+        <Route path='/movie-list/:movieID'>
+          <Movie movies={movieList} />
         </Route>
         <Route path='/'>
           <MovieList movies={movieList} />
